@@ -1,0 +1,19 @@
+.Price {
+    padding: 1rem;
+    background: linear-gradient(to bottom right,rgb(255, 244, 90), rgb(241, 160, 38));
+    align-self: stretch;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+
+.oldPrice {
+    text-decoration: line-through;
+    color: rgb(95, 95, 95);
+    margin-bottom: 0.5rem;
+}
+
+.newPrice {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}

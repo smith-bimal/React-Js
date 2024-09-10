@@ -1,0 +1,18 @@
+.Comment {
+    border: 1px solid white;
+    border-radius: 1rem;
+    padding: 1rem;
+    width: fit-content;
+    margin: 1rem;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+.comment-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
