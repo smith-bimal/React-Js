@@ -2,7 +2,7 @@ import { useState } from "react"
 import ColorButton from "./ColorButton.jsx"
 
 function App() {
-  const [color, setColor] = useState("ash")
+  const [color, setColor] = useState("darkgrey")
 
   let changeColor = (event)=> {
     setColor(event.target.textContent)
