@@ -1,43 +1,33 @@
 import { useState, useEffect } from 'react';
+
 import CurrencyInput from "./CurrencyInput";
-import ThemeButton from './ThemeButton';
+import useFetchAPI from '../hooks/useFetchAPI';
 
 function CurrencyConverter() {
-    const [theme, setTheme] = useState({color: "red-400", bgColor: "red-300",primaryColor:"red-500", secondaryColor: "red-100"});
+    const [theme, setTheme] = useState({ color: "blue-400", bgColor: "blue-300", primaryColor: "red-500", secondaryColor: "red-100" });
     const [amount, setAmount] = useState(1);
     const [convertedAmount, setConvertedAmount] = useState(0);
     const [currencies, setCurrencies] = useState([]);
     const [toCurrency, setToCurrency] = useState('USD');
     const [fromCurrency, setFromCurrency] = useState('INR');
 
-    const fetchAmount = async () => {
-        try {
-            const response = await fetch(`https://api.frankfurter.app/latest?amount=${amount}&from=${fromCurrency}&to=${toCurrency}`);
-            const data = await response.json();
-            setConvertedAmount(data.rates[toCurrency]);
-        } catch (e) {
-            setConvertedAmount(amount);
-        }
-    };
+    const amountFetchURL = `https://api.frankfurter.app/latest?amount=${amount}&from=${fromCurrency}&to=${toCurrency}`;
+    const currencyFetchURL = 'https://api.frankfurter.app/currencies';
+
+    const conversionData = useFetchAPI(amountFetchURL);
+    const currencyData = useFetchAPI(currencyFetchURL);
 
     useEffect(() => {
-        fetchAmount();
-    }, [amount, fromCurrency, toCurrency]);
-
-    const fetchCurrencies = async () => {
-        try {
-            const res = await fetch('https://api.frankfurter.app/currencies');
-            const data = await res.json();
-            setCurrencies(Object.keys(data));
-        } catch (error) {
-            console.log(error);
+        if (conversionData) {
+            setConvertedAmount(conversionData.rates[toCurrency]);
         }
-    };
-    console.log(theme);
+    }, [amount, fromCurrency, toCurrency, amountFetchURL, conversionData]);
 
     useEffect(() => {
-        fetchCurrencies();
-    }, []);
+        if (currencyData) {
+            setCurrencies(Object.keys(currencyData));
+          }
+    }, [currencyData]);
 
     const handleCurrencySwap = () => {
         setAmount(convertedAmount || 0);
@@ -47,21 +37,13 @@ function CurrencyConverter() {
     };
 
     return (
-        <div className={`w-screen h-screen flex items-center justify-center bg-gradient-to-tl from-${theme.secondaryColor} to-${theme.bgColor}`}>
+        <div className={`w-screen h-screen flex items-center justify-center bg-gradient-to-tl from-blue-100 to-blue-300`}>
             <div className="mx-auto p-4 h-[30rem] max-w-96 w-full rounded-xl bg-white shadow-xl flex flex-col relative">
-                <div className={`absolute w-full h-1/2 top-0 left-0 bg-gradient-to-tr from-${theme.primaryColor} to-${theme.bgColor} z-0 rounded-t-xl`}>
-                    <div className="absolute -top-12 flex gap-4">
-                        <ThemeButton setTheme={setTheme} color="red"/>
-                        <ThemeButton setTheme={setTheme} color="blue"/>
-                        <ThemeButton setTheme={setTheme} color="orange"/>
-                        <ThemeButton setTheme={setTheme} color="green"/>
-                        <ThemeButton setTheme={setTheme} color="violet"/>
-                    </div></div>
+                <div className={`absolute w-full h-1/2 top-0 left-0 bg-gradient-to-tr from-blue-500 to-blue-300 z-0 rounded-t-xl`}></div>
                 <div className="z-5 h-full">
                     <div className="relative">
                         <h1 className="text-3xl text-white text-center">Currency Converter</h1>
                         <CurrencyInput
-                            theme={theme.color}
                             color="white"
                             label="From"
                             isReadonly={false}
@@ -72,14 +54,13 @@ function CurrencyConverter() {
                             setCurrency={setFromCurrency}
                         />
                         <button
-                            className={`p-2 bg-white shadow-lg rounded-md text-3xl text-${theme.color} mt-16 translate-x-72 right-0`}
+                            className={`p-2 bg-white shadow-lg rounded-md text-3xl text-blue-400 mt-16 translate-x-72 right-0`}
                             onClick={handleCurrencySwap}
                         >
                             <i className="ri-arrow-up-down-line"></i>
                         </button>
                         <CurrencyInput
-                            theme={theme.color}
-                            color={theme.color}
+                            color="blue-400"
                             label="To"
                             isReadonly={true}
                             state={convertedAmount}

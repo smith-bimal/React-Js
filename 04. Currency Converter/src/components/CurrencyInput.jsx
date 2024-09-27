@@ -1,4 +1,4 @@
-function CurrencyInput({ theme, color, label, isReadonly, state, setState, currencies, currency, setCurrency }) {
+function CurrencyInput({ color, label, isReadonly, state, setState, currencies, currency, setCurrency }) {
     // Make sure to default to an empty string if state or currency is undefined
     const inputValue = state !== undefined ? state : '';
     const selectValue = currency !== undefined ? currency : (currencies.length > 0 ? currencies[0] : '');
@@ -30,7 +30,7 @@ function CurrencyInput({ theme, color, label, isReadonly, state, setState, curre
                 value={selectValue}
             >
                 {currencies.map(c => (
-                    <option key={c} className={`bg-transparent text-${theme}`}>{c}</option>
+                    <option key={c} className={`bg-transparent text-blue-400`}>{c}</option>
                 ))}
             </select>
         </div>
