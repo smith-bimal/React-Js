@@ -4,7 +4,6 @@ import CurrencyInput from "./CurrencyInput";
 import useFetchAPI from '../hooks/useFetchAPI';
 
 function CurrencyConverter() {
-    const [theme, setTheme] = useState({ color: "blue-400", bgColor: "blue-300", primaryColor: "red-500", secondaryColor: "red-100" });
     const [amount, setAmount] = useState(1);
     const [convertedAmount, setConvertedAmount] = useState(0);
     const [currencies, setCurrencies] = useState([]);
