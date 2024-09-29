@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 function CurrencyInput({ color, label, isReadonly, state, setState, currencies, currency, setCurrency }) {
     // Make sure to default to an empty string if state or currency is undefined
     const inputValue = state !== undefined ? state : '';
@@ -24,9 +25,9 @@ function CurrencyInput({ color, label, isReadonly, state, setState, currencies, 
                 </div>
             </div>
 
-            <select 
-                className={`inline-block w-fit text-${color} bg-transparent focus:outline-none focus-visible:outline-none border-none p-2 text-xl`} 
-                onChange={(e) => setCurrency(e.target.value)} 
+            <select
+                className={`inline-block w-fit text-${color} bg-transparent focus:outline-none focus-visible:outline-none border-none p-2 text-xl`}
+                onChange={(e) => setCurrency(e.target.value)}
                 value={selectValue}
             >
                 {currencies.map(c => (
